@@ -16,8 +16,8 @@ from azure.iot.device import IoTHubDeviceClient, Message
 #   --hub-name {YourIoTHubName} --device-id MyNodeDevice --output table
 CONNECTION_STRING = (
     "HostName=iot-hub-jonjau.azure-devices.net;"
-    "DeviceId=TempHumidSensor;"
-    "SharedAccessKey=4+gg7Gk7yGY+g55m+KmZw7ellMrye9tkcxz1XDFRQgE="
+    "DeviceId=IceCreamPOS;"
+    "SharedAccessKey=HXIo++ztkuw1Rbzai8tsptt2fl3p+KOUh51kqmjMZJg="
 )
 
 # Define the JSON message to send to IoT Hub.
@@ -25,12 +25,10 @@ AVG_TEMP = 25.0
 TEMP_RANGE = 10.0
 
 AVG_HUMID = 60.0
-HUMID_RANGE = 20.0
+HUMID_RANGE = 10.0
 
-TEMP_COEFF = 10
-BASE_N_CUSTOMERS = 100
-
-#MSG_TXT = '{{"temperature": {temperature}, "humidity": {humidity}, "revenue": {revenue}}}'
+TEMP_COEFF = 2
+BASE_N_CUSTOMERS = 10
 
 MENU = {'vanilla': 7.0,
         'chocolate': 8.0,
@@ -58,24 +56,23 @@ def simulate_telemetry(client):
 
         humidity_factor = humidity / AVG_HUMID
 
-        n_customers = BASE_N_CUSTOMERS + TEMP_COEFF * temperature_diff
+        n_customers = max(BASE_N_CUSTOMERS + TEMP_COEFF * temperature_diff, 0)
         n_customers = int(n_customers * humidity_factor)
 
         daily_revenue = 0
-        flavour_counts = collections.Counter(FLAVOURS)
+        flavour_counts = collections.defaultdict(int)
 
         for customer in range(n_customers):
             choice = random.choices(
                 population=list(MENU.items()),
-                weights=[(max(PRICES) - price) for price in PRICES])
+                weights=[price/max(PRICES) for price in PRICES])
             flavour, price = choice[0]
             flavour_counts[flavour] += 1
             daily_revenue += price
 
-        curr_time += datetime.timedelta(days=1)
-        print(curr_time)
+        #curr_time += datetime.timedelta(days=1)
+        #msg_json['time'] = curr_time.strftime("%Y-%m-%d")
 
-        msg_json['time'] = curr_time.strftime("%Y-%m-%d")
         msg_json['temperature'] = temperature
         msg_json['humidity'] = humidity
         msg_json['revenue'] = daily_revenue
@@ -83,14 +80,13 @@ def simulate_telemetry(client):
             msg_json[flavour_name] = flavour_counts[flavour_name]
 
         msg_json_text = json.dumps(msg_json)
-        #msg_json_text = MSG_TXT.format(temperature=temperature, humidity=humidity, revenue=daily_revenue)
         message = Message(msg_json_text)
 
         # Send the message.
         print("Sending message: {}".format(message))
         client.send_message(message)
         print ("Message successfully sent")
-        time.sleep(5)
+        time.sleep(1)
 
 def iothub_client_init():
     # Create an IoT Hub client
