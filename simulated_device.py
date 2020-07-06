@@ -1,8 +1,5 @@
 import random
 import time
-# TODO: timezone needed?
-#from datetime import datetime, timedelta
-import datetime
 import json
 import collections
 
@@ -20,7 +17,8 @@ CONNECTION_STRING = (
     "SharedAccessKey=HXIo++ztkuw1Rbzai8tsptt2fl3p+KOUh51kqmjMZJg="
 )
 
-# Define the JSON message to send to IoT Hub.
+# --- Simulation parameters ---
+
 AVG_TEMP = 25.0
 TEMP_RANGE = 10.0
 
@@ -38,16 +36,11 @@ MENU = {'vanilla': 7.0,
 PRICES = MENU.values()
 FLAVOURS = MENU.keys()
 
-START_TIME = datetime.datetime.combine(datetime.datetime.now(),datetime.time())
-
-
 def simulate_telemetry(client):
-    curr_time = START_TIME
     while True:
         msg_json = {}
 
         # Build the message with simulated telemetry values.
-        # n_customers = simulate_n_customers()
         temperature_diff = (random.random() * TEMP_RANGE) - TEMP_RANGE/2
         temperature = AVG_TEMP + temperature_diff
 
@@ -69,9 +62,6 @@ def simulate_telemetry(client):
             flavour, price = choice[0]
             flavour_counts[flavour] += 1
             daily_revenue += price
-
-        #curr_time += datetime.timedelta(days=1)
-        #msg_json['time'] = curr_time.strftime("%Y-%m-%d")
 
         msg_json['temperature'] = temperature
         msg_json['humidity'] = humidity
