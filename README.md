@@ -11,6 +11,7 @@
   - [Description](#description)
   - [Setup](#setup)
   - [Running the simulation](#running-the-simulation)
+  - [Visualisations](#visualisations)
 
 ## Description
 
@@ -68,3 +69,16 @@ data and continually grows as the client sends more messages. The data persists
 even after the Stream Analytics job or client script is stopped (to reset the
 data, simply delete the dataset). Reports can be made from the dataset,
 to visualise and summarise the telemetry data.
+
+## Visualisations
+
+Below are two key visualisations from a simulation that was run for 15 seconds
+(corresponding to 15 trading days):
+
+![fl](results/flavour-popularity.jpg)
+
+![a](results/temperature-humidity-revenue-over-time.jpg)
+
+The complete Power BI report from this sample run was exported as
+[IceCreamReport.pdf](results/IceCreamReport.pdf) and
+[IceCreamReport.pptx](results/IceCreamReport.pptx).
