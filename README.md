@@ -51,6 +51,14 @@ Stream Analytics:
 3. Add Power BI as an output (needs authorisation)
 4. Create a query: `SELECT * INTO yourOutputName FROM yourInputName`
 
+The python script requires `azure.iot.device`. Install it with:
+
+```bash
+pip install azure-iot-device
+```
+
+in Conda/venv environment or otherwise.
+
 ## Running the simulation
 
 1. Start the Stream Analytics job.
@@ -64,21 +72,21 @@ az iot hub monitor-events --hub-name yourHubName --device-id yourDeviceId
 
 Messages sent from the client script should appear.
 
-There should be a new dataset in your Power BI workspace. This dataset is live
-data and continually grows as the client sends more messages. The data persists
-even after the Stream Analytics job or client script is stopped (to reset the
-data, simply delete the dataset). Reports can be made from the dataset,
-to visualise and summarise the telemetry data.
+Then, there should be a new dataset in your Power BI workspace. This dataset
+is live data and continually grows as the client sends more messages. The
+data persists even after the Stream Analytics job or client script is stopped
+(to reset the data, simply delete the dataset). Reports can be made from the
+dataset, to visualise and summarise the telemetry data.
 
 ## Visualisations
 
 Below are two key visualisations from a simulation that was run for 15 seconds
 (corresponding to 15 trading days):
 
-![fl](results/flavour-popularity.jpg)
+![flavour-popularity](./results/flavour-popularity.jpg)
 
-![a](results/temperature-humidity-revenue-over-time.jpg)
+![temp-humid-over-time](./results/temperature-humidity-revenue-over-time.jpg)
 
 The complete Power BI report from this sample run was exported as
-[IceCreamReport.pdf](results/IceCreamReport.pdf) and
-[IceCreamReport.pptx](results/IceCreamReport.pptx).
+[IceCreamReport.pdf](./results/IceCreamReport.pdf) and
+[IceCreamReport.pptx](./results/IceCreamReport.pptx).
