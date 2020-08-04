@@ -57,7 +57,7 @@ The python script requires `azure.iot.device`. Install it with:
 pip install azure-iot-device
 ```
 
-in Conda/venv environment or otherwise.
+in a Conda/venv environment or otherwise.
 
 ## Running the simulation
 
