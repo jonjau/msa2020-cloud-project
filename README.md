@@ -15,10 +15,10 @@
 
 ## Description
 
-The client script [`simulated_device.py`](simulated_device.py) simulates a
-point-of-sale machine in a small ice cream shop. It generates data
-continuously every second, and each message sent is to represent data from a
-single trading period (day).
+The client script [`simulated_device.py`](simulated_device.py) simulates,
+with randomness, a point-of-sale machine in a small ice cream shop. It
+generates data continuously every second, and each message sent is to
+represent data from a single trading period (day).
 
 The data sent contains daily revenue, temperature and humidity information,
 as well as the number of purchases for each ice cream flavour on that day.
@@ -80,12 +80,12 @@ dataset, to visualise and summarise the telemetry data.
 
 ## Visualisations
 
-Below are two key visualisations from a simulation that was run for 15 seconds
-(corresponding to 15 trading days):
+Below are two key visualisations from a simulation that was run for 16 seconds
+(corresponding to 16 trading days), with random seed `123`:
 
-![flavour-popularity](./results/flavour-popularity.jpg)
+![flavour-popularity](./results/flavour-popularity.png)
 
-![temp-humid-over-time](./results/temperature-humidity-revenue-over-time.jpg)
+![temp-humid-over-time](./results/temperature-humidity-revenue-over-time.png)
 
 The complete Power BI report from this sample run was exported as
 [IceCreamReport.pdf](./results/IceCreamReport.pdf) and
