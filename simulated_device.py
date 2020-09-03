@@ -20,6 +20,9 @@ CONNECTION_STRING = (
     "SharedAccessKey=HXIo++ztkuw1Rbzai8tsptt2fl3p+KOUh51kqmjMZJg="
 )
 
+# Set seed to make simulation data reproducible
+random.seed(123)
+
 # Simulation parameters --------------------------------------------------------
 
 # temperatures are in degrees Celsius
